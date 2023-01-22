@@ -5,10 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="static/main.css">
 </head>
 <body>
+    <img id="pokeball" src="{{ url_for('static', filename='pokeball.jpeg') }}">
     <h1>Greetings, welcome to my PokeApp!</h1>
     <a href="{{ url_for ('pokePicker') }}">Click here to catch a pokemon!</a>
-    <img src="{{ url_for('static', filename='pokeball.jpeg') }}">
 </body>
-</html>
+    </html>

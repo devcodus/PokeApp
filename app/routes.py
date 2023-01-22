@@ -38,8 +38,8 @@ def pokedata():
     response = requests.get(url)
     if response.status_code == 200:
         pokemon = response.json()
-        my_pkmn['Name'] = pokemon['name']
-        my_pkmn['abilityName'] = pokemon['abilities'][0]['ability']['name']
+        my_pkmn['Name'] = pokemon['name'].title()
+        my_pkmn['abilityName'] = pokemon['abilities'][0]['ability']['name'].title()
         my_pkmn['baseXP'] = pokemon['base_experience']
         my_pkmn['shiny'] = pokemon["sprites"]['front_shiny']
         my_pkmn['attack'] = pokemon['stats'][1]['base_stat']
