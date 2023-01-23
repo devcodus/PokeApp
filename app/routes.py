@@ -91,7 +91,8 @@ def pokePicker():
 
 @app.route('/pokedata', methods=['GET', 'POST'])
 def pokedata():
-    if request.form != None:
+    print(request.form['pokemon_name'])
+    if request.form != "":
         name = request.form["pokemon_name"].lower()
         print(name)
         url = f"https://pokeapi.co/api/v2/pokemon/{name}"
@@ -100,7 +101,7 @@ def pokedata():
     else:
         return jsonify({"error": "Pokemon not found."}), 404
 
-    if response.status_code == 200:
+    if response.status_code == 200 and name:
         pokemon = response.json()
         my_pkmn['Name'] = pokemon['name'].title()   
         my_pkmn['abilityName'] = pokemon['abilities'][0]['ability']['name'].title()
@@ -126,6 +127,8 @@ def pokedata():
         return render_template('pokedisplay.html', my_pkmn = my_pkmn)
     else:
         return jsonify({"error": "Pokemon not found."}), 404
+
+    
    
 @app.route('/my-pokemon', methods = ['GET', 'POST'])
 def myPokemon():
