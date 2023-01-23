@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h3>Sign Up Page</h3>
+
+    <form action="{{ url_for('signUpPage') }}" method="POST" class="container col-2">
+        
+        {{ form.hidden_tag()}}
+        {{ form.username(class='form-control', placeholder='Username') }}
+        {{ form.email(class='form-control', placeholder='Email') }}
+        {{ form.password(class='form-control', placeholder='Password') }}
+        {{ form.confirm_password(class='form-control', placeholder='Confirm Password') }}
+        {{ form.submit(class='btn btn-primary') }}
+
+    </form>
+
+    
+{% endblock %}
+
+
