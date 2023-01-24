@@ -1,4 +1,4 @@
-#!/Users/David/Desktop/Coding_Temple/week_5/pokeApp/my_venv/bin/python3.11
+#!/Users/David/Desktop/Coding_Temple/week_5/PokeApp2/PokeApp/my_venv/bin/python3.11
 # -*- coding: utf-8 -*-
 import re
 import sys

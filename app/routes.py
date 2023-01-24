@@ -1,9 +1,8 @@
 from app import app
 from flask import render_template, request, redirect, url_for, Flask, jsonify
 import requests
-from .forms import UserCreationForm, LoginForm
-from .models import User, Pokemon
-from flask_login import login_user, logout_user, current_user
+from .models import Pokemon
+from flask_login import  current_user
 from sqlalchemy import select 
 
 @app.route('/')
@@ -18,72 +17,6 @@ def homePage():
 def contactPage():
     return render_template('contact.html')
 
- 
-@app.route('/signup', methods = ['GET', 'POST'])
-def signUpPage():
-    form = UserCreationForm()
-    print(request.method+' test')
-
-    if request.method == 'POST':
-        print(form.validate_on_submit())
-        if form.validate_on_submit(): ## this form isn't being validated for some reason ... how to check?
-            print("success!")
-        #     username = form.username.data
-        #     email = form.email.data
-        #     password = form.password.data
-
-        #     print(username, email, password)
-
-
-            username = form.username.data
-            email = form.email.data
-            password = form.password.data
-
-            print(username, email, password)
-
-            #add user to the DB
-
-            user = User(username, email, password)
-            print(user)
-
-            # db.session.add(user)
-            # db.session.commit()
-            user.saveToDB()
-
-
-            return redirect( url_for('loginPage'))
-    return render_template('signup.html', form = form)
-
-@app.route('/login', methods = ['GET', 'POST'])
-def loginPage():
-    form = LoginForm()
-    if request.method == 'POST':
-        if form.validate():
-
-            username = form.username.data
-            password = form.password.data
-
-            user = User.query.filter_by(username = username).first()
-            if user:
-                #if user exists, check if pw's match
-                print(user)
-
-                if user.password == password:
-                    login_user(user)
-                    print('successfully logged in!')
-
-                else:
-                    print('wrong password')
-            else:
-                print("user doesn't exist")
-    
-    return render_template('login.html', form = form)
-        
-@app.route('/logout', methods = ['GET'])
-def logoutRoute():
-    logout_user()
-
-    return redirect(url_for('loginPage'))
         
 @app.route('/pokeform', methods=['GET', 'POST'])
 def pokePicker():
@@ -137,3 +70,11 @@ def myPokemon():
     
 
     return render_template('pokedex.html', my_pokemon = my_pokemon)
+
+@app.route('/pokemon/<int:pokemon_id>/delete', methods = ["GET"])
+def deletePokemon(pokemon_id):
+    pokemon = Pokemon.query.get(pokemon_id)
+    
+    pokemon.deleteFromDB()
+
+    return redirect(url_for('myPokemon'))

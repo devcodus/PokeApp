@@ -19,7 +19,7 @@
           {% if current_user.is_authenticated %}
           
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('logoutRoute')}}">Log Out</a>
+            <a class="nav-link" href="{{ url_for('auth.logoutRoute')}}">Log Out</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">User: {{ current_user.username }}</a>
@@ -31,13 +31,14 @@
           {% else %}
 
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('signUpPage')}}">Sign Up</a>
+            <a class="nav-link" href="{{ url_for('auth.signUpPage')}}">Sign Up</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('loginPage')}}">Log In</a>
+            <a class="nav-link" href="{{ url_for('auth.loginPage')}}">Log In</a>
           </li>
         
         {% endif %}       
+        
         
         </ul>
       </div>

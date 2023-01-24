@@ -3,17 +3,23 @@
 
 {% for pokemon in my_pokemon %}
 
-<div class="card" style="width: 10rem;">
-    <img src="{{pokemon.shiny}}" class="card-img-top" alt="pokemon logo">
-    <div class="card-body">
-      <h5 class="card-title">{{pokemon.name}}</h5>
-      <p class="card-text">Ability: {{pokemon.ability_name}}<br>Base Xp: {{pokemon.base_xp}}<br>HP: {{pokemon.hp}}<br>Attack: {{pokemon.attack}}<br>Defense: {{pokemon.defense}}</p>
-      <p class="card-text"></p>
-    </div>
+<a class="card" style="width: 10rem;" href="#">
+  <img src="{{pokemon.shiny}}" class="card-img-top" alt="pokemon logo">
+  <div class="card-body">
+    <h5 class="card-title">{{pokemon.name}}</h5>
+    <p class="card-text">Ability: {{pokemon.ability_name}}<br>Base Xp: {{pokemon.base_xp}}<br>HP:
+      {{pokemon.hp}}<br>Attack: {{pokemon.attack}}<br>Defense: {{pokemon.defense}}</p>
+    <p class="card-text"></p>
   </div>
+  <!-- Button trigger modal -->
+  
+</a>
+<a type="button" class="btn btn-danger" href="{{url_for('deletePokemon', pokemon_id=pokemon.id)}}">
+  Release
+</a>
+
 
 
 {% endfor %}
 
 {% endblock %}
-
