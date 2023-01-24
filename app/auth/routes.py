@@ -63,6 +63,7 @@ def loginPage():
                     print('wrong password')
             else:
                 print("user doesn't exist")
+        return redirect(url_for('homePage'))
     
     return render_template('login.html', form = form)
         

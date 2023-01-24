@@ -13,3 +13,11 @@ h1 {
 .card{
     text-decoration: none;
 }
+
+nav{
+    background-color: rgb(214, 29, 29);
+}
+
+.nav-link{
+    color: white;
+}

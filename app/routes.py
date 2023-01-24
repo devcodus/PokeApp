@@ -2,6 +2,7 @@ from app import app
 from flask import render_template, request, redirect, url_for, Flask, jsonify
 import requests
 from .models import Pokemon
+from .forms import PokemonCatchForm
 from flask_login import  current_user
 from sqlalchemy import select 
 
@@ -13,18 +14,27 @@ def homePage():
 
     return render_template('index.html', greeting = greeting)
 
-@app.route('/contact')
-def contactPage():
-    return render_template('contact.html')
-
         
 @app.route('/pokeform', methods=['GET', 'POST'])
 def pokePicker():
-    return render_template('pokeform.html')
+
+    form = PokemonCatchForm()
+
+    return render_template('pokeform.html', form = form)
+
+@app.route('/my-pokemon', methods = ['GET', 'POST'])
+def myPokemon():
+    # my_pokemon = Pokemon.query.all()
+    my_pokemon = Pokemon.query.filter(Pokemon.user_id == current_user.id).all()
+    
+
+    return render_template('pokedex.html', my_pokemon = my_pokemon)
+
 
 @app.route('/pokedata', methods=['GET', 'POST'])
 def pokedata():
     print(request.form['pokemon_name'])
+    
     if request.form != "":
         name = request.form["pokemon_name"].lower()
         print(name)
@@ -63,13 +73,6 @@ def pokedata():
 
     
    
-@app.route('/my-pokemon', methods = ['GET', 'POST'])
-def myPokemon():
-    # my_pokemon = Pokemon.query.all()
-    my_pokemon = Pokemon.query.filter(Pokemon.user_id == current_user.id).all()
-    
-
-    return render_template('pokedex.html', my_pokemon = my_pokemon)
 
 @app.route('/pokemon/<int:pokemon_id>/delete', methods = ["GET"])
 def deletePokemon(pokemon_id):

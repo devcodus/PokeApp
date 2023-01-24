@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% block content%}
 
-<h2>Enter Your Pokemon's Name!</h2>
-<form method="POST" action="{{url_for('pokedata')}}">
-    <input type="text" id="Pname" name="pokemon_name">
-    <input type="submit" value="Submit">
+<h2 class=>Enter a Pokemon's Name!</h2>
+<form method="POST" action="{{url_for('pokedata')}}" class="container col-2">
+    
+    {{ form.pokemon_name(class='form-control', placeholder='Pokemon') }}
+    {{ form.submit(class='btn btn-primary') }}
 </form>
 
 {% endblock %}
