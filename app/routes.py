@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, request, redirect, url_for, Flask, jsonify, flash
 import requests
-from .models import Pokemon
+from .models import Pokemon, User
 from .forms import PokemonCatchForm 
 from flask_login import  current_user
 from sqlalchemy import select 
@@ -82,14 +82,45 @@ def pokedata():
         return jsonify({"error": "Pokemon not found."}), 404
 
 
-@app.route('/battle')
-def battle():
+@app.route('/battlefield')
+def battlefield():
+
+    # my_pokemon = Pokemon.query.filter(Pokemon.user_id == current_user.id).all()
+
+    all_users = User.query.all()
+
+
     home = Pokemon.query.filter(Pokemon.user_id == current_user.id).all()
 
-    rogelio817 = Pokemon.query.filter(Pokemon.user_id == 2).all()
-    bc = Pokemon.query.filter(Pokemon.user_id == 2).all()
+    # rogelio817 = Pokemon.query.filter(Pokemon.user_id == 2).all()
+    # bc = Pokemon.query.filter(Pokemon.user_id == 2).all()
 
-    return render_template('battle.html', home = home, rogelio817 = rogelio817, bc = bc)
+    return render_template('battlefield.html', home = home, all_users = all_users)
+
+@app.route('/choose_opponent/<int:user_id>')
+def chooseOpponent(user_id):
+    # u = int(user.id)
+    print(user_id)
+    opponents_pokemon = Pokemon.query.filter(Pokemon.user_id == user_id)
+    
+    home = Pokemon.query.filter(Pokemon.user_id == current_user.id).all()
+
+    #winner = math logic to determine winner
+    #return redirect(url_for('battleOpponent', winner = winner)) 
+
+    return render_template('battlefield.html', opponents_pokemon = opponents_pokemon, home = home)
+
+@app.route('/battle_opponent/<home>/<opponents_pokemon>', methods = ['GET', 'POST'])
+def battleOpponent(home, opponents_pokemon):
+    print('testing')
+    print(home)
+    print(opponents_pokemon)
+    # for pokemon in home:
+    #     print(pokemon)
+    #     attack += pokemon['stats'][1]['base_stat']
+    #     print(attack)
+    # for pokemon in opponents_pokemon:
+    return redirect(url_for('battlefield', opponents_pokemon = opponents_pokemon, home = home))
 
 @app.route('/pokemon/<int:pokemon_id>/delete', methods = ["GET"])
 def deletePokemon(pokemon_id):

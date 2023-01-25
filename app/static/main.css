@@ -22,17 +22,18 @@ nav{
     color: white;
 }
 
-/* .pokecard{
+.pokecard{
     display: flex;
     flex-direction: row;
-} */
+    flex-wrap: nowrap;
+    width: fit-content;
+}
 
 .battlecards{
- /* width: fit-content;   */
- flex-wrap: nowrap;
- width: auto;
- display: flex;
- flex-direction: row; 
+    width: fit-content;  
+    flex-wrap: nowrap;
+    display: flex;
+    flex-direction: row; 
 }
 
 /* Dropdown Button */
