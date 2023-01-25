@@ -12,6 +12,8 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), nullable=False, unique=True)
     password = db.Column(db.String, nullable=False)
     pokemon = db.relationship("Pokemon", backref="owner", lazy=True)
+    wins = db.Column(db.Integer, nullable=True)
+    losses = db.Column(db.Integer, nullable=True)
 
 
     def __init__(self, username, email, password):

@@ -1,8 +1,8 @@
 from app import app
-from flask import render_template, request, redirect, url_for, Flask, jsonify
+from flask import render_template, request, redirect, url_for, Flask, jsonify, flash
 import requests
 from .models import Pokemon
-from .forms import PokemonCatchForm
+from .forms import PokemonCatchForm 
 from flask_login import  current_user
 from sqlalchemy import select 
 
@@ -33,11 +33,21 @@ def myPokemon():
 
 @app.route('/pokedata', methods=['GET', 'POST'])
 def pokedata():
-    print(request.form['pokemon_name'])
+    # print(request.form['pokemon_name'])
+    my_pokemon = Pokemon.query.filter(Pokemon.user_id == current_user.id).all()
+
+    if len(my_pokemon)+1 <= 5:
+        print(my_pokemon)
+        print('you can still catch more pokemon')
+        pass
+    else:
+        print('your bag is full')
+        message = flash("You already have 5 pokemon", category="danger")
+        return redirect(url_for('myPokemon', message = message))
     
     if request.form != "":
         name = request.form["pokemon_name"].lower()
-        print(name)
+        # print(name)
         url = f"https://pokeapi.co/api/v2/pokemon/{name}"
         my_pkmn = {}
         response = requests.get(url)
@@ -62,17 +72,24 @@ def pokedata():
         hp = my_pkmn['hp']
         defense = my_pkmn['defense']
 
-        pokemon = Pokemon(pokename, ability_name, base_xp, shiny, attack, hp, defense, current_user.id ) ## USER_ID ?
-        print(pokemon.name)
+        pokemon = Pokemon(pokename, ability_name, base_xp, shiny, attack, hp, defense, current_user.id ) 
+        # print(pokemon.name)
         pokemon.saveToDB()
 
-        print(my_pkmn)
+        # print(my_pkmn)
         return render_template('pokedisplay.html', my_pkmn = my_pkmn)
     else:
         return jsonify({"error": "Pokemon not found."}), 404
 
-    
-   
+
+@app.route('/battle')
+def battle():
+    home = Pokemon.query.filter(Pokemon.user_id == current_user.id).all()
+
+    rogelio817 = Pokemon.query.filter(Pokemon.user_id == 2).all()
+    bc = Pokemon.query.filter(Pokemon.user_id == 2).all()
+
+    return render_template('battle.html', home = home, rogelio817 = rogelio817, bc = bc)
 
 @app.route('/pokemon/<int:pokemon_id>/delete', methods = ["GET"])
 def deletePokemon(pokemon_id):
