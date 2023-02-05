@@ -11,9 +11,9 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(45), nullable=False, unique=True)
     email = db.Column(db.String(150), nullable=False, unique=True)
     password = db.Column(db.String, nullable=False)
-    pokemon = db.relationship("Pokemon", backref="owner", lazy=True)
     wins = db.Column(db.Integer, nullable=True)
     losses = db.Column(db.Integer, nullable=True)
+    pokemon = db.relationship("Pokemon", backref="owner", lazy=True)
     pokedex = db.relationship("Pokedex", back_populates="user")
 
 
@@ -38,7 +38,7 @@ class Pokemon(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
     pokedex = db.relationship('Pokedex', back_populates="pokemon")
 
-    def __init__(self, name, ability_name, base_xp, shiny, attack, hp, defense, user_id, pokedex):
+    def __init__(self, name, ability_name, base_xp, shiny, attack, hp, defense, user_id):
         self.name = name
         self.ability_name = ability_name
         self.base_xp = base_xp
@@ -47,7 +47,7 @@ class Pokemon(db.Model):
         self.hp = hp
         self.defense = defense
         self.user_id = user_id
-        self.pokedex = pokedex ## IS THIS CORRECT?
+        # self.pokedex = pokedex ## IS THIS CORRECT?
 
     def saveToDB(self):
         db.session.add(self)

@@ -72,7 +72,7 @@ def pokedata():
         hp = my_pkmn['hp']
         defense = my_pkmn['defense']
 
-        pokemon = Pokemon(pokename, ability_name, base_xp, shiny, attack, hp, defense, current_user.id, current_user.pokedex ) ## DID I INTEGRATE THE POKEDEX CORRECTLY?
+        pokemon = Pokemon(pokename, ability_name, base_xp, shiny, attack, hp, defense, current_user.id) ## DID I INTEGRATE THE POKEDEX CORRECTLY?
         pokemon.saveToDB()
 
 
