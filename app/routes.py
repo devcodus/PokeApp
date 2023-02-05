@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, request, redirect, url_for, Flask, jsonify, flash
 import requests
-from .models import Pokemon, User
+from .models import Pokemon, User, Pokedex
 from .forms import PokemonCatchForm 
 from flask_login import  current_user
 from sqlalchemy import select 
@@ -72,9 +72,13 @@ def pokedata():
         hp = my_pkmn['hp']
         defense = my_pkmn['defense']
 
-        pokemon = Pokemon(pokename, ability_name, base_xp, shiny, attack, hp, defense, current_user.id ) 
-        # print(pokemon.name)
+        pokemon = Pokemon(pokename, ability_name, base_xp, shiny, attack, hp, defense, current_user.id, current_user.pokedex ) ## DID I INTEGRATE THE POKEDEX CORRECTLY?
         pokemon.saveToDB()
+
+
+        
+        pokedex = Pokedex(current_user.id, pokemon.id)
+        pokedex.saveToDB()
 
         # print(my_pkmn)
         return render_template('pokedisplay.html', my_pkmn = my_pkmn)

@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):
     pokemon = db.relationship("Pokemon", backref="owner", lazy=True)
     wins = db.Column(db.Integer, nullable=True)
     losses = db.Column(db.Integer, nullable=True)
+    pokedex = db.relationship("Pokedex", back_populates="user")
 
 
     def __init__(self, username, email, password):
@@ -35,8 +36,9 @@ class Pokemon(db.Model):
     hp = db.Column(db.Integer, nullable = False)
     defense = db.Column(db.Integer, nullable = False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+    pokedex = db.relationship('Pokedex', back_populates="pokemon")
 
-    def __init__(self, name, ability_name, base_xp, shiny, attack, hp, defense, user_id):
+    def __init__(self, name, ability_name, base_xp, shiny, attack, hp, defense, user_id, pokedex):
         self.name = name
         self.ability_name = ability_name
         self.base_xp = base_xp
@@ -45,6 +47,7 @@ class Pokemon(db.Model):
         self.hp = hp
         self.defense = defense
         self.user_id = user_id
+        self.pokedex = pokedex ## IS THIS CORRECT?
 
     def saveToDB(self):
         db.session.add(self)
@@ -60,6 +63,8 @@ class Pokedex(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
     pokemon_id = db.Column(db.Integer, db.ForeignKey('pokemon.id'), nullable = False)
+    user = db.relationship("User", back_populates="pokedex")
+    pokemon = db.relationship("Pokemon", back_populates="pokedex")
 
    
     def __init__(self, user_id, pokemon_id):
@@ -74,3 +79,7 @@ class Pokedex(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+# Pokemon.pokedexes = relationship("Pokedex", back_populates="pokemon")
+# User.pokedexes = relationship("Pokedex", back_populates="user")
+
+## update flask db models in order to grap {{pokemon.pokedex_id}}

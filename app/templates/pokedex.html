@@ -26,7 +26,7 @@
         Attack: {{pokemon.attack}}<br>
         Defense: {{pokemon.defense}}
       </p>
-      <h6>Pokedex entry: </h6>
+      <h6>Pokedex entry: {{ pokemon.pokedex[0].id}}</h6> 
       <p class="card-text"></p>
     </div>
     
@@ -40,5 +40,6 @@
 
 
 {% endfor %}
+
 
 {% endblock %}
