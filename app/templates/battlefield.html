@@ -14,11 +14,14 @@
 
     {% endfor %}
   </div>
+  <form action="{{url_for('battleOpponent', home=home, opponents_pokemon=opponents_pokemon)}}" method="POST">
+    <button type="Submit" class="btn btn-danger">Battle!</button>
+  </form>
 </div>
 
 <div class="row">
   {% for pokemon in opponents_pokemon %}
-  <div class='battlecards'>
+  <div class='battlecards'> 
     <a class="card" style="width: 10rem;" href="#">
       <img src="{{pokemon.shiny}}" class="card-img-top" alt="pokemon logo">
       <div class="card-body">
@@ -33,10 +36,7 @@
 </div>
 
 <div class="container col-2">
-  <strong style="{left: 50%;}"> VS.</strong>
-  <form action="{{url_for('battleOpponent', home=home, opponents_pokemon=opponents_pokemon)}}" method="POST">
-    <button type="Submit" class="btn btn-danger">Battle!</button>
-  </form>
+  <strong style="{left: 50%;}"> VS.</strong><strong>{{ winner }}</strong>
 </div>
 
 <div class="row">
@@ -53,7 +53,7 @@
           HP: {{pokemon.hp}}<br>
           Attack: {{pokemon.attack}}<br>
           Defense: {{pokemon.defense}}</p>
-          Pokedex: {{ pokemon.pokedex[0].id }}
+          <!-- Pokedex: NOW THE POKEDEX ISN'T SHOWING WHEN I BATTLEOPPONENT ... -->
         <p class="card-text"></p>
       </div>
     </a>
