@@ -1,3 +1,7 @@
+.splash{
+    background-image: url("splash_page.jpeg");
+}
+
 #pokeball{
     width: 10%;
 }
