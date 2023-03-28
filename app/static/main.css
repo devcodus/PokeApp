@@ -11,7 +11,19 @@
 }
 
 h1 {
-    color: dodgerblue
+    color: white
+}
+
+#login_header{
+    color: white
+}
+
+#signup_header{
+    color: white
+}
+
+.white_text{
+    color: white;
 }
 
 .card{
