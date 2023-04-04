@@ -5,7 +5,7 @@
   {% if messages %}
     <ul class=flashes>
     {% for message in messages %}
-      <li>{{ message }}</li>
+      <li class="white_text">{{ message }}</li>
     {% endfor %}
     </ul>
   {% endif %}
@@ -14,7 +14,7 @@
 
 {% for pokemon in my_pokemon %}
 
-<div class="pokecard">
+<div class="pokecard container-fluid">
 <div class="card" style="width: 10rem;" >
     <img src="{{pokemon.shiny}}" class="card-img-top" alt="pokemon logo">
     <div class="card-body">

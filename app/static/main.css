@@ -4,10 +4,12 @@
 
 #pokeball{
     width: 10%;
+    background: transparent;
 }
 
 #pokemon-logo{
     width: 4em;
+    background: transparent;
 }
 
 h1 {
@@ -24,6 +26,7 @@ h1 {
 
 .white_text{
     color: white;
+    text-decoration: none;
 }
 
 .card{
@@ -38,11 +41,17 @@ nav{
     color: white;
 }
 
+#poke_catch{
+    border: white;
+
+}
+
 .pokecard{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     width: fit-content;
+    
 }
 
 .battlecards{

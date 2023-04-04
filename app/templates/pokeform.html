@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content%}
 
-<h2 class=>Enter a Pokemon's Name!</h2>
+<h2 class="white_text">Enter a Pokemon's Name!</h2>
 <form method="POST" action="{{url_for('pokedata')}}" class="container col-2">
     
     {{ form.pokemon_name(class='form-control', placeholder='Pokemon') }}
