@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{% with messages = get_flashed_messages() %}
+{% with messages = get_flashed_messages() %} <!-- I NEVER GOT THESE FLASH MSG'S TO WORK ... POTENTIAL COMMIT -->
   {% if messages %}
     <ul class=flashes>
     {% for message in messages %}

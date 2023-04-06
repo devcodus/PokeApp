@@ -35,7 +35,7 @@ class Pokemon(db.Model):
     attack = db.Column(db.Integer, nullable = False)
     hp = db.Column(db.Integer, nullable = False)
     defense = db.Column(db.Integer, nullable = False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable = False)
     pokedex = db.relationship('Pokedex', back_populates="pokemon")
 
     def __init__(self, name, ability_name, base_xp, shiny, attack, hp, defense, user_id):
@@ -61,8 +61,8 @@ class Pokemon(db.Model):
 
 class Pokedex(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
-    pokemon_id = db.Column(db.Integer, db.ForeignKey('pokemon.id'), nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable = False)
+    pokemon_id = db.Column(db.Integer, db.ForeignKey('pokemon.id', ondelete='CASCADE'), nullable = False)
     user = db.relationship("User", back_populates="pokedex")
     pokemon = db.relationship("Pokemon", back_populates="pokedex")
 
