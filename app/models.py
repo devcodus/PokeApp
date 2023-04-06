@@ -61,8 +61,8 @@ class Pokemon(db.Model):
 
 class Pokedex(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable = False)
-    pokemon_id = db.Column(db.Integer, db.ForeignKey('pokemon.id', ondelete='CASCADE'), nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable = True) ## switched these to nullable = true...
+    pokemon_id = db.Column(db.Integer, db.ForeignKey('pokemon.id', ondelete='CASCADE'), nullable = True) ##
     user = db.relationship("User", back_populates="pokedex")
     pokemon = db.relationship("Pokemon", back_populates="pokedex")
 
@@ -75,7 +75,13 @@ class Pokedex(db.Model):
         db.session.add(self)
         db.session.commit()
 
+
     def deleteFromDB(self):
+        sql = text('''
+            DELETE FROM other_table
+            WHERE pokemon_id = :id
+        ''')
+        db.session.execute(sql, {'id': self.id})    
         db.session.delete(self)
         db.session.commit()
 
